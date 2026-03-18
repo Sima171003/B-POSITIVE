@@ -43,5 +43,5 @@ public class UserApplication {
     {
         this.email = email;
     }
-    
+
 }

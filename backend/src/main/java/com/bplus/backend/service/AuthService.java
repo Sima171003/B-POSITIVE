@@ -31,22 +31,24 @@ public class AuthService {
             
 
         }
-        else
-        {
 
-            UserApplication application = new UserApplication();
-
-            application.setName(request.getName());
-            application.setEmail(request.getEmail());
-
-            userApplicationRepo.save(application);
-
-            return "User Application submitted Successfully";
+        if(userApplicationRepo.existsByEmail(request.getEmail())){
+            return "User already exists";
         }
 
-        
+        UserApplication application = new UserApplication();
 
+        application.setName(request.getName());
+        application.setEmail(request.getEmail());
 
+        userApplicationRepo.save(application);
+
+        return "User Application submitted Successfully";
+
+    }
+
+    public UserApplication getUserByEmail(String email){
+        return userApplicationRepo.findByEmail(email);
     }
     
 }

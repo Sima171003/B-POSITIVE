@@ -16,7 +16,7 @@ public class EmailService {
         message.setTo(to);
         message.setSubject("Acknowledgment to the OTP Request");
         message.setText(
-            "Hello User, " +
+            "Hello User" +
             "Your OTP is :" + otp + "\n"+
             "Have a Nice day\n" +
             "From Be Positve Team."
