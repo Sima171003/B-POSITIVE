@@ -1,0 +1,27 @@
+package com.bplus.backend.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmailService {
+    
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void sendOTP(String to, String otp){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject("Acknowledgment to the OTP Request");
+        message.setText(
+            "Hello User,\n\n"+
+            "Your OTP is :" + otp + "\n"+
+            "Have a Nice day\n" +
+            "From Be Positve Team."
+        );
+
+        mailSender.send(message);
+    }
+}
