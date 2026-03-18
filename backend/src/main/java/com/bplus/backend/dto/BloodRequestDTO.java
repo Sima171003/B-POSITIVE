@@ -1,5 +1,5 @@
 package com.bplus.backend.dto;
 
-public class ReviewRequest {
+public class BloodRequestDTO {
     
 }
