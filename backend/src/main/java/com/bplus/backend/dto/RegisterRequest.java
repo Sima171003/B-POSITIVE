@@ -2,8 +2,7 @@ package com.bplus.backend.dto;
 
 public class RegisterRequest {
     private String name;
-    private String phone;
-    private String loc;
+    private String email;
 
     public RegisterRequest()
     {
@@ -20,30 +19,20 @@ public class RegisterRequest {
         this.name = name;
     }
 
-    public String getPhone()
+    public String getEmail()
     {
-        return phone;
+        return email;
     }
 
-    public void setPhone(String phone)
+    public void setEmail(String email)
     {
-        this.phone = phone;
-    }
-
-    public String getLoc()
-    {
-        return loc;
-    }
-
-    public void setLoc(String loc)
-    {
-        this.loc = loc;
+        this.email = email;
     }
 
     public String registerValidation()
     {
 
-        if(name == null || phone == null || loc == null)
+        if(name == null || name.trim().isEmpty() || email == null || email.trim().isEmpty())
         {
             return "Please fill up all details to proceed";
         }

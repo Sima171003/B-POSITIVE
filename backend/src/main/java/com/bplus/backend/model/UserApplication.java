@@ -13,8 +13,7 @@ public class UserApplication {
     private Long id;
 
     private String name;
-    private String phone;
-    private String loc;
+    private String email;
 
     public UserApplication()
     {
@@ -35,30 +34,14 @@ public class UserApplication {
     {
         this.name = name;
     }
-    public String getPhone()
+    public String getEmail()
     {
-        return phone;
+        return email;
     }
 
-    public void setPhone(String phone)
+    public void setEmail(String email)
     {
-        this.phone = phone;
+        this.email = email;
     }
-
-    public String getLoc()
-    {
-        return loc;
-    }
-
-    public void setLoc(String loc)
-    {
-        this.loc = loc;
-    }
-
-
-
-
-
-
     
 }
