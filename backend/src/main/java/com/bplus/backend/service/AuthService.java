@@ -37,10 +37,7 @@ public class AuthService {
             UserApplication application = new UserApplication();
 
             application.setName(request.getName());
-            //application.setEmail(request.getEmail());
-            //application.setBloodGroup(request.getBloodGroup());
-            application.setPhone(request.getPhone());
-            application.setLoc(request.getLoc());
+            application.setEmail(request.getEmail());
 
             userApplicationRepo.save(application);
 
