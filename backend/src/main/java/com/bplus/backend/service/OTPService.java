@@ -35,6 +35,7 @@ public class OTPService {
 
         String otp;
         RegisterRequest request;
+        String type;
 
         public OTPData(String otp, RegisterRequest request){
             this.otp = otp;

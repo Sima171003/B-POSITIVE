@@ -1,8 +1,6 @@
 package com.bplus.backend.controller;
 
-import com.bplus.backend.dto.LoginRequest;
 import com.bplus.backend.dto.RegisterRequest;
-import com.bplus.backend.model.UserApplication;
 import com.bplus.backend.service.AuthService;
 import com.bplus.backend.service.EmailService;
 import com.bplus.backend.service.OTPService;
@@ -42,33 +40,33 @@ public class AuthController {
         return "OTP Sent Successfully";
     }
 
-    @PostMapping("/login/request-otp")
-    public String requestloginOTP(@RequestBody LoginRequest request){
+    // @PostMapping("/login/request-otp")
+    // public String requestloginOTP(@RequestBody LoginRequest request){
         
-        String validation = request.loginValidation();
+    //     String validation = request.loginValidation();
 
-        if(!"Valid details".equals(validation)){
-            return validation;
-        }
+    //     if(!"Valid details".equals(validation)){
+    //         return validation;
+    //     }
 
-        String email = request.getEmail();
-        String role = request.getRole();
+    //     String email = request.getEmail();
+    //     String role = request.getRole();
 
-        UserApplication user = authService.getUserByEmail(email);
+    //     UserApplication user = authService.getUserByEmail(email);
 
-        if(user == null){
-            return "User Not Found. Please Register First";
-        }
+    //     if(user == null){
+    //         return "User Not Found. Please Register First";
+    //     }
 
-        if(!user.getRole().equals(role)) {
-            return "Invalid Role for this user";
-        }
+    //     if(!user.getRole().equals(role)) {
+    //         return "Invalid Role for this user";
+    //     }
 
-        String otp = otpService.generateOTP(email, null);
-        emailService.sendOTP(email, otp);
+    //     String otp = otpService.generateOTP(email, null);
+    //     emailService.sendOTP(email, otp);
 
-        return "OTP Sent Successfully";
-    }
+    //     return "OTP Sent Successfully";
+    // }
 
     @PostMapping("/verify-otp")
     public String verifyOTP(@RequestBody Map<String, String> body)
