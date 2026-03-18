@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./styles/login.css">
+    <title>login/signupPanel</title>
+</head>
+<body>
+    <div class="container">
+        <i class="bx bx-x cross"></i>
+        <div class="form-box register">
+            <form action="#" class="register-fields">
+                <h1>Register</h1>
+                <div class="inputbox">
+                    <i class="bx bx-user"></i>
+                    <input type="text" placeholder="" required>
+                    <label for="name">Enter Your Name:</label>
+                </div>
+                <div class="inputbox">
+                    <i class="bx bx-envelope bx-remove-padding"></i>
+                    <input type="email" pattern="[a-zA-Z0-9./_+-]+@gmail.com" placeholder="" required>
+                    <label for="email">Enter Your Email:</label>
+                </div>
+                <button type="submit" class="btn"><i class="bx bx-paper-plane bx-remove-padding"></i> Register</button>
+                <p>Already a member?<button type="button" class="toggle-trig login-btn">Log In</button></p>
+            </form>
+            <div class="otp-container">
+                <div class="loader">
+                    <span class="dots"></span>
+                    <span class="dots"></span>
+                    <span class="dots"></span>
+                    <span class="dots"></span>
+                    <span class="dots"></span>
+                </div>
+                <h2>Verify OTP</h2>
+                <p class="info">Enter the 4-digit OTP sent to your Email</p>
+                <div class="otp-inputs">
+                    <input type="text" maxlength="1" class="otp" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp" pattern="[0-9]" inputmode="numeric">
+                </div>
+                <p class="req-section">Didn't Recieve the Code ?<button type="button" class="resendOTP">Resend OTP</button></p>
+                <button type="button" class="verifyOTP">Verify Otp</button>
+            </div>
+        </div>
+        <div class="form-box login">
+            <form action="#" class="login-fields">
+                <h1>Login</h1>
+                <div class="inputbox">
+                    <input type="text" placeholder="" required>
+                    <label for="role" class="fields">Role: </label>
+                </div>
+                <div class="inputbox">
+                    <i class="bx bx-envelope bx-remove-padding"></i>
+                    <input type="email" pattern="[a-zA-Z0-9._%+-]+@gmail.com" placeholder="" required>
+                     <label class="fields">Email: </label>
+                </div>
+                <button type="submit" class="btn"><i class="bx bx-paper-plane bx-remove-padding"></i> Login</button>
+                <p>New to Our Website? <button type="button" class="toggle-trig register-btn">Create Account</button></p>
+            </form>
+            <div class="otp-container">
+                <div class="loader">
+                    <span class="dots"></span>
+                    <span class="dots"></span>
+                    <span class="dots"></span>
+                    <span class="dots"></span>
+                    <span class="dots"></span>
+                </div>
+                <h2>Verify OTP</h2>
+                <p class="info">Enter the 4-digit OTP sent to your Email</p>
+                <div class="otp-inputs">
+                    <input type="text" maxlength="1" class="otp" inputmode="numeric" pattern="[0-9]">
+                    <input type="text" maxlength="1" class="otp" inputmode="numeric" pattern="[0-9]">
+                    <input type="text" maxlength="1" class="otp" inputmode="numeric" pattern="[0-9]">
+                    <input type="text" maxlength="1" class="otp" inputmode="numeric" pattern="[0-9]">
+                </div>
+                <p class="req-section">Didn't Recieve the Code ?<button type="button" class="resendOTP">Resend OTP</button></p>
+                <button type="button" class="verifyOTP">Verify OTP</button>
+            </div>
+        </div>
+        <!--toggle box-->
+        <div class="toggle-box">
+            <!--left-side-->
+            <div class="toggle-panel toggle-left">
+                <img src="./resources/left-toggle.png" alt="">
+            </div>
+            <!--Right-Side-->
+            <div class="toggle-panel toggle-right">
+                <img src="./resources/vecteezyeventworlddonordayillustrationdp0422_generated-removebg-preview.png" alt="">
+            </div>
+        </div>
+    </div>
+    <script src="./script/login.js"></script>
+</body>
+</html>

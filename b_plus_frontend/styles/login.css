@@ -1,0 +1,342 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container{
+    position: relative;
+    background-color: #fff;
+    width: 900px;
+    height: 500px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 1px 1px 30px #888;
+    animation: appear 0.2s ease-in;
+}
+.form-box{
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 0 60px;
+    z-index: 1;
+    transition: 0.6s ease-in-out 1.2s,
+    visibility 0s 1s;
+}
+.container.active .form-box{
+    right: 50%;
+}
+.form-box.register{
+    visibility: hidden;
+}
+.container.active .form-box.register{
+    visibility: visible;
+}
+.container.active .form-box.login{
+    visibility: hidden;
+}
+form{
+    width: 100%;
+}
+.inputbox{
+    position: relative;
+    margin: 30px 0;
+}
+.inputbox input{
+    width: 100%;
+    padding: 13px;
+    background-color: #e8e8e8;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    color: #000;
+    border: 2px solid transparent;
+}
+.inputbox label{
+    position: absolute;
+    top: 50%;
+    left: 13px;
+    transform: translateY(-50%);
+    transition: all 0.3s ease-in;
+    pointer-events: none;
+}
+.inputbox input:focus + label,
+.inputbox input:not(:placeholder-shown) + label{
+    top: -10px;
+    left: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    color: red;
+}
+.inputbox input:focus{
+    border: 2px solid red;
+}
+.inputbox input::placeholder{
+    color: #000;
+}
+.inputbox i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: #000;
+}
+.btn{
+    width: 100%;
+    padding: 15px;
+    background-color: red;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+.btn:hover{
+    background-color: #fff;
+    color: red;
+    border: 1px solid #000;
+}
+.form-box p{
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+.toggle-trig{
+    margin-left: 5px;
+    color: orangered;
+    font-weight: 700;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+.toggle-trig:hover{
+    transform: scale(1.05);
+}
+.toggle-box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.toggle-box::before{
+    content: '';
+    position: absolute;
+    left: -250%;
+    width: 300%;
+    height: 100%;
+    background-color: orangered;
+    z-index: 1;
+    border-radius:30% 23% 50% 20% / 30% 35% 0 0;
+    transition: 1.8s ease-in;
+}
+.container.active .toggle-box::before{
+    left: 50%;
+}
+.toggle-panel{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    z-index: 2;
+    transition: 0.6s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.6s ease-in-out;
+}
+.toggle-panel.toggle-left img{
+    aspect-ratio: 1/1;
+    width: 400px;
+}
+.toggle-panel.toggle-right img{
+    width: 400px;
+}
+.toggle-panel.toggle-left{
+    left:0;
+    transition: left 1s ease-in-out;
+}
+.container.active .toggle-panel.toggle-left{
+    left: -50%;
+    transition-delay: 1s;
+}
+.toggle-panel.toggle-right{
+    right: -50%;
+    transition: right 1s ease-in-out;
+}
+.container.active .toggle-panel.toggle-right{
+    right: -10px;
+    transition-delay: 1.2s;
+}
+.cross{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 30px;
+    background-color: orangered;
+    color: #fff;
+    border-radius: 50%;
+    border: 1px solid black;
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.cross:hover{
+    transform: scale(1.05);
+}
+.loader{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+.dots{
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    animation: wiggle 1.4s infinite ease-in-out;
+    animation-delay: 1s;
+    border-radius: 50%;
+}
+.dots:nth-child(1){
+    animation-delay: 0s;
+}
+.dots:nth-child(2){
+    animation-delay: 0.1s;
+}
+.dots:nth-child(3){
+    animation-delay: 0.2s;
+}
+.dots:nth-child(4){
+    animation-delay: 0.3s;
+}
+.dots:nth-child(5){
+    animation-delay: 0.4s;
+}
+@keyframes wiggle {
+    0%{
+        transform: translateY(0);
+        
+    }
+    25%{
+        transform: translateY(-12px);
+    }
+    50%{
+        transform: translateY(0);
+    }
+    75%{
+        transform: translateY(-12px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+.otp-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: none;
+    transition: all 0.25s ease-in-out;
+}
+.otp-container h2{
+    margin-bottom: 12px;
+    font-size: 28px;
+}
+.info{
+    font-size: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.otp-inputs{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+.otp{
+    width: 45px;
+    height: 56px;
+    border-radius: 5px;
+    background-color: #cdcdcd;
+    outline: none;
+    border: 2px solid transparent;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+.otp:focus{
+    border: 2px solid orange;
+    background-color: #fff;
+}
+.req-section{
+    font-size: 16px;
+}
+.resendOTP{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: orange;
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: 6px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+.resendOTP:hover{
+    transform: scale(1.05);
+}
+.verifyOTP{
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: red;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+    border: 1px solid transparent;
+}
+.verifyOTP:hover{
+    background-color: #fff;
+    border: 1px solid black;
+    color: red;
+}
+.show-otp .register-fields,
+.show-otp .login-fields{
+    display: none;
+}
+.show-otp .otp-container{
+    display: flex;
+}
