@@ -124,7 +124,7 @@ verifyButton.forEach(verifyBtn => {
 
             if(res.ok){
                 alert("Registration Succesfully");
-                window.location.href = "./user-donorPortal.html" //testing the registrstion (temporary)
+                window.parent.location.href = "./user-donorPortal.html" //testing the registrstion (temporary)
             }else{
                 alert(data.error || "Invalid OTP. Try again.");
             }
