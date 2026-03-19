@@ -3,6 +3,8 @@ package com.bplus.backend.service;
 import com.bplus.backend.dto.RegisterRequest;
 import com.bplus.backend.model.UserApplication;
 import com.bplus.backend.repo.UserApplicationRepo;
+import com.bplus.backend.repo.DonorApplicationRepo;
+import com.bplus.backend.repo.VolunteerApplicationRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +17,13 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     @Autowired
-
     private UserApplicationRepo userApplicationRepo;
 
-    
+    @Autowired
+    private DonorApplicationRepo donorApplicationRepo;
 
+    @Autowired
+    private VolunteerApplicationRepo volunteerApplicationRepo;
 
     public String submitUserApplication(RegisterRequest request )
     {
@@ -47,8 +51,39 @@ public class AuthService {
 
     }
 
-    public UserApplication getUserByEmail(String email){
-        return userApplicationRepo.findByEmail(email);
+    public boolean userAlreadyExists(String email){
+
+        if(userApplicationRepo.existsByEmail(email)){
+            return true;
+        }
+
+        if(donorApplicationRepo.existsByEmail(email)){
+            return true;
+        }
+
+        if(volunteerApplicationRepo.existsByEmail(email)){
+            return true;
+        }
+
+        return false;
     }
     
+    public boolean validateLogin(String email, String role){
+
+        role = role.toLowerCase();
+
+        if(role.equals("volunteer")){
+            return volunteerApplicationRepo.existsByEmail(email);
+        }
+
+        if(role.equals("donor")){
+            return donorApplicationRepo.existsByEmail(email);
+        }
+
+        if(role.equals("user")){
+            return userApplicationRepo.existsByEmail(email);
+        }
+
+        return false;
+    }
 }

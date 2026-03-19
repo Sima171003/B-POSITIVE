@@ -37,7 +37,7 @@ public class RegisterRequest {
             return "Please fill up all details to proceed";
         }
 
-        return "Valid details";
+        return "Valid Details";
 
     }
 

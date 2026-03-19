@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 
 
 public interface DonorApplicationRepo extends JpaRepository<DonorApplication, Long> {
-    
+    boolean existsByEmail(String email);
 }
