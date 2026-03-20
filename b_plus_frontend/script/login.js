@@ -56,6 +56,7 @@ function getEmail(formBox){
 function getName(formBox){
     return formBox.querySelector('input[type="text"]').value;
 }
+//Register Section
 
 const registerForm = document.querySelector(".register-fields"); 
 registerForm.addEventListener("submit", async (e) => { 
@@ -75,7 +76,7 @@ registerForm.addEventListener("submit", async (e) => {
     } 
     
     try{ 
-        const res = await fetch("http://localhost:8080/auth/request-otp", { 
+        const res = await fetch("http://localhost:8080/auth/register/request-otp", { 
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"
@@ -85,7 +86,8 @@ registerForm.addEventListener("submit", async (e) => {
         
         const data = await res.json(); 
         
-        if(res.ok){ alert(data.message); 
+        if(res.ok){ 
+            alert(data.message); 
             formBox.classList.add("show-otp"); 
         } else { 
             alert(data.error); 
@@ -96,42 +98,121 @@ registerForm.addEventListener("submit", async (e) => {
     } 
 });
 
-const verifyButton = document.querySelectorAll(".verifyOTP");
+const registerVerifyButton = document.querySelector(".verifyRegisterOTP");
+registerVerifyButton.addEventListener("click", async () => {
+    const otpContainer = registerVerifyButton.closest(".otp-container");
+    const formBox = registerVerifyButton.closest(".form-box");
 
-verifyButton.forEach(verifyBtn => {
-    verifyBtn.addEventListener("click", async () => {
-        const otpContainer = verifyBtn.closest(".otp-container");
-        const formBox = verifyBtn.closest(".form-box");
+    const email = formBox.querySelector('input[type="email"]').value;
+    // const nameInput = formBox.querySelector('input[type="text"]');
+    const otp = getOTP(otpContainer);
 
-        const email = formBox.querySelector('input[type="email"]').value;
-        // const nameInput = formBox.querySelector('input[type="text"]');
-        const otp = getOTP(otpContainer);
+    if(!otp || otp.length !== 4){
+        alert("Enter the 4-digit OTP");
+        return;
+    }
 
-        if(!otp || otp.length < 4){
-            alert("Enter the 4-digit OTP");
-            return;
+    try{
+
+        const res = await fetch('http://localhost:8080/auth/register/verify-otp', {
+            method : "POST",
+            headers : { "Content-Type": "application/json" },
+            body: JSON.stringify({email ,otp})
+        });
+
+        const data = await res.json();
+
+        if(data.success){
+            alert("Registration Succesfully");
+            window.parent.location.href = "./user-donorPortal.html" //testing the registrstion (temporary)
+        }else{
+            alert(data.error || "Invalid OTP. Try again.");
         }
+    } catch(err){
+        console.error(err);
+        alert("Server error. Try again later.");
+    }
 
-        try{
+});
 
-            const res = await fetch('http://localhost:8080/auth/verify-otp', {
-                method : "POST",
-                headers : { "Content-Type": "application/json" },
-                body: JSON.stringify({email ,otp})
-            });
+// Login section
+const loginForm = document.querySelector(".login-fields");
+loginForm.addEventListener("submit", async (e) =>{
+    e.preventDefault();
 
-            const data = await res.json();
+    const formBox = loginForm.closest(".form-box");
+    const email = getEmail(formBox);
+    const role = getName(formBox);
 
-            if(res.ok){
-                alert("Registration Succesfully");
-                window.parent.location.href = "./user-donorPortal.html" //testing the registrstion (temporary)
-            }else{
-                alert(data.error || "Invalid OTP. Try again.");
+    if(!email){
+        alert("Enter A Email");
+        return;
+    }
+
+    if(!role){
+        alert("Enter A Valid Role");
+        return;
+    }
+
+    try{
+
+        const res = await fetch('http://localhost:8080/auth/login/request-otp', {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ email,role })
+        })
+
+        const data = await res.json();
+
+        if(data.success){
+            alert(data.message);
+            formBox.classList.add("show-otp");
+        } else {
+            alert(data.message);
+        }
+    }catch(err){
+        console.error(err);
+        alert("Server Error");
+    }
+});
+
+const loginVerifyButton = document.querySelector(".verifyLoginOTP");
+loginVerifyButton.addEventListener("click", async () => {
+
+    const formBox = loginVerifyButton.closest(".form-box");
+    const otpContainer = loginVerifyButton.closest(".otp-container");
+
+    const email = getEmail(formBox);
+    const role = getName(formBox);
+    const otp = getOTP(otpContainer);
+
+    if(!otp || otp.length !== 4){
+        alert("Enter Your 4-digit OTP");
+        return;
+    }
+
+    try {
+
+        const res = await fetch('http://localhost:8080/auth/login/verify-otp', {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({ email,role,otp })
+        });
+
+        const data = await res.json();
+        if(data.success){
+            alert("Login Succesful")
+            if(data.role && data.role.toLower() == "volunteer"){
+                window.parent.location.href = "./volunteerPortal.html";
+            } else{
+                window.parent.location.href = "./user-donorPortal.html";
             }
-        } catch(err){
-            console.error(err);
-            alert("Server error. Try again later.");
+        }else{
+            alert(data.message);
         }
 
-    });
+    } catch(err){
+        console.error(err);
+        alert("Server Error");
+    }
 });

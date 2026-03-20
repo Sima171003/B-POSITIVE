@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bplus.backend.dto.LoginRequest;
 import com.bplus.backend.dto.RegisterRequest;
 import com.bplus.backend.service.AuthService;
 import com.bplus.backend.service.EmailService;
@@ -29,88 +30,138 @@ public class AuthController {
     @Autowired
     private OTPService otpService;
 
-@PostMapping("/request-otp")
-public Map<String, Object> requestOTP(@RequestBody RegisterRequest request)
-{
-    Map<String, Object> response = new HashMap<>();
+    @PostMapping("/register/request-otp")
+    public Map<String, Object> requestOTP(@RequestBody RegisterRequest request)
+    {
+        Map<String, Object> response = new HashMap<>();
 
-    String validation = request.registerValidation();
+        String validation = request.registerValidation();
 
-    if(!"Valid details".equals(validation)){
-        response.put("success", false);
-        response.put("message", validation);
+        if(!"Valid Details".equals(validation)){
+            response.put("success", false);
+            response.put("message", validation);
+
+            return response;
+        }
+
+        String email = request.getEmail();
+
+        if(authService.userAlreadyExists(email)){
+            response.put("success", false);
+            response.put("message", "User Already Exists");
+
+            return response;
+        }
+
+        String otp = otpService.generateOTP(email, request);
+        emailService.sendOTP(email, otp);
+
+        response.put("success", true);
+        response.put("message", "OTP Sent Successfully");
+
         return response;
     }
 
-    String email = request.getEmail();
+    @PostMapping("/register/verify-otp")
+    public Map<String, Object> verifyOTP(@RequestBody Map<String, String> body)
+    {
+        Map<String, Object> response = new HashMap<>();
 
-    String otp = otpService.generateOTP(email, request);
-    emailService.sendOTP(email, otp);
+        String email = body.get("email");
+        String otp = body.get("otp");
 
-    response.put("success", true);
-    response.put("message", "OTP Sent Successfully");
+        if(!otpService.verifyOTP(email, otp)){
+            response.put("success", false);
+            response.put("message", "Invalid OTP");
 
-    return response;
-}
+            return response;
+        }
 
-    // @PostMapping("/login/request-otp")
-    // public String requestloginOTP(@RequestBody LoginRequest request){
-        
-    //     String validation = request.loginValidation();
+        var otpData = otpService.getOTPData(email);
 
-    //     if(!"Valid details".equals(validation)){
-    //         return validation;
-    //     }
+        if(otpData == null){
+            response.put("success", false);
+            response.put("message", "OTP Not Found");
+            return response;
+        }
 
-    //     String email = request.getEmail();
-    //     String role = request.getRole();
+        RegisterRequest request = otpData.getRequest();
 
-    //     UserApplication user = authService.getUserByEmail(email);
+        if(request != null){
+            authService.submitUserApplication(request);
+            otpService.clearOTP(email);
 
-    //     if(user == null){
-    //         return "User Not Found. Please Register First";
-    //     }
+            response.put("success", true);
+            response.put("message", "Registered Successfully");
+        } 
 
-    //     if(!user.getRole().equals(role)) {
-    //         return "Invalid Role for this user";
-    //     }
-
-    //     String otp = otpService.generateOTP(email, null);
-    //     emailService.sendOTP(email, otp);
-
-    //     return "OTP Sent Successfully";
-    // }
-
-   
-    @PostMapping("/verify-otp")
-public Map<String, Object> verifyOTP(@RequestBody Map<String, String> body)
-{
-    Map<String, Object> response = new HashMap<>();
-
-    String email = body.get("email");
-    String otp = body.get("otp");
-
-    if(!otpService.verifyOTP(email, otp)){
-        response.put("success", false);
-        response.put("message", "Invalid OTP");
         return response;
     }
 
-    RegisterRequest request = otpService.getOTPData(email).getRequest();
 
-    if(request != null){
-        authService.submitUserApplication(request);
-        otpService.clearOTP(email);
+    @PostMapping("/login/request-otp")
+    public Map<String, Object> loginRequestOTP(@RequestBody LoginRequest request){
 
-        response.put("success", true);
-        response.put("message", "Registered Successfully");
-    } else {
-        otpService.clearOTP(email);
+        Map<String, Object> response = new HashMap<>();
 
-        response.put("success", true);
-        response.put("message", "Login Successful");
+        String validation = request.loginValidation();
+
+        if(!"Valid Details".equals(validation)){
+            response.put("success", false);
+            response.put("message", validation);
+
+            return response;
+        }
+
+        String email = request.getEmail();
+        String role = request.getRole();
+
+        var exists = authService.validateLogin(email, role);
+
+        if(!exists){
+            response.put("success", false);
+            response.put("message", "Account Not Exist");
+
+            return response;
+        }
+
+        String otp = otpService.generateOTP(email, null);
+        emailService.sendOTP(email, otp);
+
+        response.put("success",true);
+        response.put("message","OTP Sent Succesfully");
+
+        return response;
     }
 
-    return response;
-}
+    @PostMapping("/login/verify-otp")
+    public Map<String, Object> loginVerifyOTP(@RequestBody Map<String, String> body){
+
+        Map<String,Object> response = new HashMap<>();
+
+        String email = body.get("email");
+        String otp = body.get("otp");
+        String role = body.get("role");
+
+        if(!otpService.verifyOTP(email, otp)){
+            response.put("success",false);
+            response.put("message", "Invalid OTP");
+
+            return response;
+        }
+
+        if(otpService.getOTPData(email) == null){
+            response.put("success", false);
+            response.put("message", "OTP Expired");
+
+            return response;
+        } 
+
+        otpService.clearOTP(email);
+
+        response.put("success", true);
+        response.put("message", "Login Succesful");
+        response.put("role",role);
+        return response;
+    }
 }

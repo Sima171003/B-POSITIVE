@@ -10,5 +10,5 @@ import com.bplus.backend.Entity.DonorApplication;
 
 
 public interface DonorApplicationRepo extends JpaRepository<DonorApplication, Long> {
-    
+    boolean existsByEmail(String email);
 }

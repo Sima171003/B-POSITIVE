@@ -38,7 +38,7 @@ public class LoginRequest {
             return "Please fill up all details to proceed";
         }
 
-        return "Valid details";
+        return "Valid Details";
 
     }
 
