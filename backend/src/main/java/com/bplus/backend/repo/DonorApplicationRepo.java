@@ -1,8 +1,9 @@
 package com.bplus.backend.repo;
 
-import com.bplus.backend.model.DonorApplication;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.bplus.backend.Entity.DonorApplication;
 
 
 @Repository

@@ -1,7 +1,7 @@
 package com.bplus.backend.service;
 
+import com.bplus.backend.Entity.UserApplication;
 import com.bplus.backend.dto.RegisterRequest;
-import com.bplus.backend.model.UserApplication;
 import com.bplus.backend.repo.UserApplicationRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
