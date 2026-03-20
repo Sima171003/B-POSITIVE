@@ -1,9 +1,9 @@
-package com.bplus.backend.model;
+package com.bplus.backend.entity;
 
 import jakarta.persistence.*;
 
 @Entity
-public class VolunteerApplication {
+public class DonorApplication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,8 +13,9 @@ public class VolunteerApplication {
     private String phone;
     private String bloodGroup;
     private String city;
+    private String email;
 
-    public VolunteerApplication()
+    public DonorApplication()
     {
 
     }
@@ -38,6 +39,17 @@ public class VolunteerApplication {
     {
         this.name = name;
     }
+
+    public String getEmail ()
+    {
+        return email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
 
     public String getPhone()
     {

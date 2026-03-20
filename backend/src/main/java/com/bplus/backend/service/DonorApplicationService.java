@@ -1,7 +1,7 @@
 package com.bplus.backend.service;
 
 import com.bplus.backend.dto.DonorApplicationRequest;
-import com.bplus.backend.model.DonorApplication;
+import com.bplus.backend.entity.DonorApplication;
 import com.bplus.backend.repo.DonorApplicationRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;

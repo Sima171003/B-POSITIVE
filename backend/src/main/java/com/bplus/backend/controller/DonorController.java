@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/donor")
-public class DonorApplicationController {
+public class DonorController {
 
     @Autowired
     private DonorApplicationService donorApplicationService;
