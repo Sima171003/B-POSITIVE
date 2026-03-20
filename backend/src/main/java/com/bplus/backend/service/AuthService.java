@@ -1,7 +1,7 @@
 package com.bplus.backend.service;
 
-import com.bplus.backend.Entity.UserApplication;
 import com.bplus.backend.dto.RegisterRequest;
+import com.bplus.backend.entity.UserApplication;
 import com.bplus.backend.repo.UserApplicationRepo;
 import com.bplus.backend.repo.DonorApplicationRepo;
 import com.bplus.backend.repo.VolunteerApplicationRepo;
@@ -57,11 +57,11 @@ public class AuthService {
             return true;
         }
 
-        if(donorApplicationRepo.existsByEmail(email)){
+        else if(donorApplicationRepo.existsByEmail(email)){
             return true;
         }
 
-        if(volunteerApplicationRepo.existsByEmail(email)){
+        else if(volunteerApplicationRepo.existsByEmail(email)){
             return true;
         }
 

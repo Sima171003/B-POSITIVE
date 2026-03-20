@@ -1,4 +1,4 @@
-package com.bplus.backend.Entity;
+package com.bplus.backend.entity;
 
 import jakarta.persistence.*;
 

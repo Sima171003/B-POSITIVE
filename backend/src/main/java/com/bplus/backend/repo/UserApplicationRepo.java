@@ -3,7 +3,7 @@ package com.bplus.backend.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.bplus.backend.Entity.UserApplication;
+import com.bplus.backend.entity.UserApplication;
 
 
 @Repository
@@ -11,5 +11,5 @@ import com.bplus.backend.Entity.UserApplication;
 
 public interface UserApplicationRepo extends JpaRepository<UserApplication, Long> {
     boolean existsByEmail(String email);
-    UserApplication findByEmail(String email);
+    //UserApplication findByEmail(String email);
 }

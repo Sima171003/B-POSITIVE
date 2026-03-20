@@ -1,6 +1,9 @@
-package com.bplus.backend.Entity;
+package com.bplus.backend.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class VolunteerApplication {
@@ -13,6 +16,7 @@ public class VolunteerApplication {
     private String phone;
     private String bloodGroup;
     private String city;
+    private String email;
 
     public VolunteerApplication()
     {
@@ -44,10 +48,24 @@ public class VolunteerApplication {
         return phone;
     }
 
+    
+
     public void setPhone(String phone)
     {
         this.phone = phone;
     }
+
+    
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
 
     public String getBloodGroup()
     {

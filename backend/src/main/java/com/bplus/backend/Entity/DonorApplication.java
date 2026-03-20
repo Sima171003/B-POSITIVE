@@ -1,4 +1,4 @@
-package com.bplus.backend.Entity;
+package com.bplus.backend.entity;
 
 import jakarta.persistence.*;
 
@@ -13,6 +13,7 @@ public class DonorApplication {
     private String phone;
     private String bloodGroup;
     private String city;
+    private String email;
 
     public DonorApplication()
     {
@@ -38,6 +39,17 @@ public class DonorApplication {
     {
         this.name = name;
     }
+
+    public String getEmail ()
+    {
+        return email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
 
     public String getPhone()
     {
