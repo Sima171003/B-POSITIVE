@@ -30,21 +30,7 @@ The main goal of B-POSITIVE is to create a platform where:
 
 ## 👩‍💻 My Contribution
 
-I worked on the **backend development** of this project.
 
-My backend contribution includes:
-
-- Designing the Spring Boot backend structure
-- Creating backend packages using layered architecture
-- Working with entity, controller, service, repository, DTO, config, and exception layers
-- Setting up database connectivity with MySQL
-- Adding required backend dependencies
-- Preparing the backend for REST API development
-- Structuring the project for future frontend-backend integration
-
-The frontend part of the project was developed by my husband as part of our collaborative full-stack work.
-
----
 
 ## 🤝 Collaboration
 
